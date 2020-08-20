@@ -7,13 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { CurrencyChartComponent } from './currency-chart/currency-chart.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CurrencyConversionComponent,
-    CurrencyChartComponent
+    CurrencyChartComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
