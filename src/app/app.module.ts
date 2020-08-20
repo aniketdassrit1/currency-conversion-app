@@ -8,6 +8,9 @@ import { HomeComponent } from './home/home.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { CurrencyChartComponent } from './currency-chart/currency-chart.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MaterialModule} from "./material.module";
+import {ReactiveFormsModule} from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
