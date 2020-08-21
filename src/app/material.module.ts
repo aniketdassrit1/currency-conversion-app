@@ -3,6 +3,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [],
@@ -11,7 +12,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatFormFieldModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatGridListModule
+    MatGridListModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule {}

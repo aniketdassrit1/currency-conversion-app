@@ -1,4 +1,4 @@
-<form [formGroup]="currencyForm">
+<form [formGroup]="currencyForm" (ngSubmit)="navigateToCurrencyConversion($event)">
   <mat-form-field>
     <input type="text"
            matInput
@@ -7,11 +7,12 @@
            required
            [matAutocomplete]="autoGroup">
     <mat-autocomplete #autoGroup="matAutocomplete">
-      <!--<mat-optgroup *ngFor="let group of currencyList | async" [label]="group.letter">
-        <mat-option *ngFor="let name of group.names" [value]="name">
-          {{name}}
+      <mat-optgroup>
+        <mat-option *ngFor="let group of filteredCurrencyList | async" [value]="group.id">
+          {{group.id}} {{group.currencyName}}
         </mat-option>
-      </mat-optgroup>-->
+      </mat-optgroup>
     </mat-autocomplete>
   </mat-form-field>
+  <button type="submit" mat-raised-button color="primary">Next</button>
 </form>
