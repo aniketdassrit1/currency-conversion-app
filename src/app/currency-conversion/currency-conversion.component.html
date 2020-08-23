@@ -1,1 +1,42 @@
-<p>currency-conversion works!</p>
+<div class="row justify-content-center pb-3">
+  <div class="h1">Please enter the currency amount</div>
+</div>
+
+<div class="row col-12 currency-conversion">
+  <div class="col-6">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Enter preferred currency" aria-describedby="Enter preferred currency" [value]="currencyValue" [formControl]="currencyToBeConverted">
+
+      <div class="input-group-append">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" aria-haspopup="true">
+            {{selectedCurrency}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Enter value" aria-describedby="Enter value" [value]="convertedCurrency" [disabled]="true">
+
+      <div class="input-group-append">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" aria-haspopup="true" (click)="showDropDown = !showDropDown">
+            {{currencyType}}
+          </button>
+
+          <div class="dropdown-menu" [ngClass]="showDropDown ? 'show' : ''">
+            <button class="dropdown-item" type="button" *ngFor="let option of listOfCurrenciesToConvert" (click)="setCurrencyType(option)">{{option}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row h-100 justify-content-center">
+  <button type="button" class="mr-3" mat-raised-button color="primary" (click)="navigateBack()">Back</button>
+  <button type="submit" mat-raised-button color="primary" (click)="navigateToChart()">Chart</button>
+</div>

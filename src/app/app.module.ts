@@ -8,9 +8,10 @@ import { HomeComponent } from './home/home.component';
 import { CurrencyConversionComponent } from './currency-conversion/currency-conversion.component';
 import { CurrencyChartComponent } from './currency-chart/currency-chart.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {MaterialModule} from "./material.module";
-import {ReactiveFormsModule} from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import {MaterialModule} from './material.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from "@angular/common/http";
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

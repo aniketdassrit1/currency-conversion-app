@@ -1,18 +1,29 @@
 <form [formGroup]="currencyForm" (ngSubmit)="navigateToCurrencyConversion($event)">
-  <mat-form-field>
-    <input type="text"
-           matInput
-           placeholder="Choose currency"
-           formControlName="currency"
-           required
-           [matAutocomplete]="autoGroup">
-    <mat-autocomplete #autoGroup="matAutocomplete">
-      <mat-optgroup>
-        <mat-option *ngFor="let group of filteredCurrencyList | async" [value]="group.id">
-          {{group.id}} {{group.currencyName}}
-        </mat-option>
-      </mat-optgroup>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Next</button>
+  <div class="row mb-3">
+    <div class="h1">Please select your preferred currency</div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <mat-form-field>
+        <input type="text"
+               matInput
+               placeholder="Choose currency"
+               formControlName="currency"
+               required
+               [matAutocomplete]="autoGroup">
+        <mat-autocomplete #autoGroup="matAutocomplete">
+          <mat-optgroup>
+            <mat-option *ngFor="let group of filteredCurrencyList | async" [value]="group.id">
+              {{group.id}} {{group.currencyName}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row h-100 justify-content-center">
+    <button type="submit" mat-raised-button color="primary">Next</button>
+  </div>
 </form>

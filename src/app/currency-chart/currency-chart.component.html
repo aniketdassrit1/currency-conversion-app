@@ -1,1 +1,5 @@
-<p>currency-chart works!</p>
+<highcharts-chart *ngIf="chart && chartOptions" [Highcharts]="chart" [options]="chartOptions"></highcharts-chart>
+
+<div class="row h-100 justify-content-center">
+  <button type="button" mat-raised-button color="primary" (click)="navigateBackToConversion()">Back</button>
+</div>

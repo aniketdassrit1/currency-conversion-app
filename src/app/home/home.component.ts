@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
-import {AppService} from "../app.service";
-import {CurrencyListInterface} from "../app.interface";
+import {AppService} from '../app.service';
+import {CurrencyListInterface} from '../app.interface';
 import {values, filter} from 'lodash';
-import {Observable, Subscription} from "rxjs";
-import {map} from "rxjs/operators";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Observable, Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -35,21 +35,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  filterCurrencyByQuery(currencyList: CurrencyListInterface[], query: string) {
+  filterCurrencyByQuery(currencyList: CurrencyListInterface[], query: string): CurrencyListInterface[] {
     const currencyRegex = new RegExp(query.toLowerCase());
-    return filter(currencyList, currency => currencyRegex.test(currency.currencyName.toLowerCase()) || currencyRegex.test(currency.id.toLowerCase()));
+    return filter(currencyList, currency => {
+      const currencyName = currencyRegex.test(currency.currencyName.toLowerCase());
+      const currencyId = currencyRegex.test(currency.id.toLowerCase());
+      return currencyName || currencyId;
+    });
   }
 
-  navigateToCurrencyConversion(event) {
+  navigateToCurrencyConversion(event): void {
     event.preventDefault();
-    if(this.currencyForm.valid) {
+    if (this.currencyForm.valid) {
       this.route.navigate([
-        '/currency-conversion'], {
-        state: {
-          selectedCurrency: this.currencyForm.controls.currency.value
-        }
-      });
-      return false;
+        '/currency-conversion'], { state: { selectedCurrency: this.currencyForm.controls.currency.value }});
     }
   }
 
