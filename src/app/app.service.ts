@@ -10,8 +10,7 @@ import {apiKey} from './app.constants';
   providedIn: 'root'
 })
 export class AppService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(public http: HttpClient) { }
 
   getCurrencyList(): Observable<CurrencyListInterface> {
     return this.http.get<{ results: CurrencyListInterface }>(`https://free.currconv.com/api/v7/currencies?apiKey=${apiKey}`).pipe(

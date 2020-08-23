@@ -1,5 +1,15 @@
-<highcharts-chart *ngIf="chart && chartOptions" [Highcharts]="chart" [options]="chartOptions"></highcharts-chart>
+<ng-container *ngIf="loading else chartTemplate">
+  <div class="clearfix">
+    <div class="spinner-border float-right text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-container>
 
-<div class="row h-100 justify-content-center">
-  <button type="button" mat-raised-button color="primary" (click)="navigateBackToConversion()">Back</button>
-</div>
+<ng-template #chartTemplate>
+  <highcharts-chart *ngIf="chart && chartOptions" [Highcharts]="chart" [options]="chartOptions"></highcharts-chart>
+
+  <div class="row h-100 justify-content-center">
+    <button type="button" mat-raised-button color="primary" (click)="navigateBackToConversion()">Back</button>
+  </div>
+</ng-template>

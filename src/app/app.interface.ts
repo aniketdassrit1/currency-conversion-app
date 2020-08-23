@@ -1,9 +1,11 @@
 export interface CurrencyListInterface {
-  [key: string]: {
-    currencyName: string;
-    currencySymbol: string;
-    id: string;
-  };
+  [key: string]: CurrencySingleInterface
+}
+
+export interface CurrencySingleInterface {
+  currencyName: string;
+  currencySymbol: string;
+  id: string;
 }
 
 export interface CurrencyConversionInterface {

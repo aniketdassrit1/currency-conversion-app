@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {AppService} from '../app.service';
-import {CurrencyListInterface} from '../app.interface';
+import {CurrencyListInterface, CurrencySingleInterface} from '../app.interface';
 import {values, filter} from 'lodash';
 import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currencyForm = new FormGroup({
     currency: new FormControl('')
   });
-  currencyList: CurrencyListInterface[] = [];
-  filteredCurrencyList: Observable<CurrencyListInterface[]>;
+  currencyList: CurrencySingleInterface[] = [];
+  filteredCurrencyList: Observable<CurrencySingleInterface[]>;
   getCurrencyList: Subscription;
 
   constructor(private appService: AppService, private route: Router) { }
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  filterCurrencyByQuery(currencyList: CurrencyListInterface[], query: string): CurrencyListInterface[] {
+  filterCurrencyByQuery(currencyList: CurrencySingleInterface[], query: string): CurrencySingleInterface[] {
     const currencyRegex = new RegExp(query.toLowerCase());
     return filter(currencyList, currency => {
       const currencyName = currencyRegex.test(currency.currencyName.toLowerCase());

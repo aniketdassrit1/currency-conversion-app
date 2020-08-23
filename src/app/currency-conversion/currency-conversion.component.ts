@@ -5,6 +5,7 @@ import {AppService} from '../app.service';
 import {FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {currencyToConvertTo} from '../app.constants';
+import {CurrencyConversionInterface} from "../app.interface";
 
 @Component({
   selector: 'app-currency-conversion',
@@ -16,7 +17,7 @@ export class CurrencyConversionComponent implements OnInit, OnDestroy {
   convertedCurrency = '';
   currencyValue = '';
   listOfCurrenciesToConvert: string[] = [];
-  currencyType = 'USD';
+  currencyType: string = 'USD';
   showDropDown = false;
   currencyToBeConverted = new FormControl('');
   convertedCurrencyValues: Subscription;
@@ -35,7 +36,7 @@ export class CurrencyConversionComponent implements OnInit, OnDestroy {
   }
 
   callCurrencyConvertor(): void {
-    this.convertedCurrencyValues = this.appService.getConvertedCurrencyValues( this.currencyType, this.selectedCurrency).subscribe(data => {
+    this.convertedCurrencyValues = this.appService.getConvertedCurrencyValues( this.currencyType, this.selectedCurrency).subscribe((data: CurrencyConversionInterface) => {
       this.currencyToBeConverted.valueChanges.subscribe(rate => {
         const currencyRate = values(get(data, `${this.selectedCurrency}_${this.currencyType}`));
         this.convertedCurrency = `${((currencyRate[0]) * rate).toFixed(2)}`;
@@ -43,7 +44,7 @@ export class CurrencyConversionComponent implements OnInit, OnDestroy {
     });
   }
 
-  setCurrencyType(option): void {
+  setCurrencyType(option: string): void {
     this.showDropDown = !this.showDropDown;
     this.currencyType = option;
     this.callCurrencyConvertor();

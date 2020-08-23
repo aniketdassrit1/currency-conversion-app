@@ -1,35 +1,48 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {Component} from "@angular/core";
+import {Routes} from "@angular/router";
+
+@Component({
+  selector: 'app-dummy',
+  template: ''
+})
+class AppDummy {}
+
+const appRoutes: Routes = [{
+  path: 'home',
+  component: AppDummy
+}, {
+  path: 'currency-conversion',
+  component: AppDummy
+}, {
+  path: 'chart',
+  component: AppDummy
+}, {
+  path: '',
+  redirectTo: 'home',
+  pathMatch: 'full'
+}, {
+  path: '**',
+  component: AppDummy
+}];
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes(appRoutes)
       ],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
-  }));
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'currency-conversion-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('currency-conversion-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('currency-conversion-app app is running!');
   });
 });
