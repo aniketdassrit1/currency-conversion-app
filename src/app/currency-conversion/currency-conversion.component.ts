@@ -5,7 +5,7 @@ import {AppService} from '../app.service';
 import {FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {currencyToConvertTo} from '../app.constants';
-import {CurrencyConversionInterface} from "../app.interface";
+import {CurrencyConversionInterface} from '../app.interface';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -17,7 +17,7 @@ export class CurrencyConversionComponent implements OnInit, OnDestroy {
   convertedCurrency = '';
   currencyValue = '';
   listOfCurrenciesToConvert: string[] = [];
-  currencyType: string = 'USD';
+  currencyType = 'USD';
   showDropDown = false;
   currencyToBeConverted = new FormControl('');
   convertedCurrencyValues: Subscription;
@@ -36,12 +36,23 @@ export class CurrencyConversionComponent implements OnInit, OnDestroy {
   }
 
   callCurrencyConvertor(): void {
-    this.convertedCurrencyValues = this.appService.getConvertedCurrencyValues( this.currencyType, this.selectedCurrency).subscribe((data: CurrencyConversionInterface) => {
-      this.currencyToBeConverted.valueChanges.subscribe(rate => {
-        const currencyRate = values(get(data, `${this.selectedCurrency}_${this.currencyType}`));
-        this.convertedCurrency = `${((currencyRate[0]) * rate).toFixed(2)}`;
+    this.convertedCurrencyValues = this.appService.getConvertedCurrencyValues( this.currencyType, this.selectedCurrency)
+      .subscribe((data: CurrencyConversionInterface) => {
+      this.currencyToBeConverted.valueChanges.subscribe((val: number = 0) => {
+        this.convertedCurrency = this.calculateConvertedCurrency(data, val);
       });
+      this.updatedConvertedCurrency(data);
     });
+  }
+
+  calculateConvertedCurrency(data, val): string {
+    const currencyRate = values(get(data, `${this.selectedCurrency}_${this.currencyType}`));
+    return `${((currencyRate[0]) * val).toFixed(2)}`;
+  }
+
+  updatedConvertedCurrency(data): void {
+    const val = this.currencyToBeConverted.value;
+    this.convertedCurrency = val ? this.calculateConvertedCurrency(data, val) : '';
   }
 
   setCurrencyType(option: string): void {

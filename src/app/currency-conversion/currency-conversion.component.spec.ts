@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CurrencyConversionComponent } from './currency-conversion.component';
-import {RouterTestingModule} from "@angular/router/testing";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {Router} from "@angular/router";
-import {AppService} from "../app.service";
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Router} from '@angular/router';
+import {AppService} from '../app.service';
 import {of} from 'rxjs';
-import {ReactiveFormsModule} from "@angular/forms";
-import {HomeComponent} from "../home/home.component";
-import {Component} from "@angular/core";
+import {ReactiveFormsModule} from '@angular/forms';
+import {HomeComponent} from '../home/home.component';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'currency-conversion-dummy',
+  selector: 'app-currency-conversion-dummy',
   template: ''
 })
-class CurrencyConversionDummy {}
+class AppCurrencyConversionDummyComponent {}
 
 describe('CurrencyConversionComponent', () => {
   let component: CurrencyConversionComponent;
@@ -29,10 +29,10 @@ describe('CurrencyConversionComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([{
           path: 'home',
-          component: CurrencyConversionDummy
+          component: AppCurrencyConversionDummyComponent
         }, {
           path: 'chart',
-          component: CurrencyConversionDummy
+          component: AppCurrencyConversionDummyComponent
         }]),
         ReactiveFormsModule
       ]
@@ -41,8 +41,8 @@ describe('CurrencyConversionComponent', () => {
     fixture = TestBed.createComponent(CurrencyConversionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    route = TestBed.get(Router);
-    appService = TestBed.get(AppService);
+    route = TestBed.inject(Router);
+    appService = TestBed.inject(AppService);
     spyOn(route, 'navigate').and.callThrough();
   }));
 
@@ -70,9 +70,21 @@ describe('CurrencyConversionComponent', () => {
   describe('callCurrencyConvertor', () => {
     it('should call getConvertedCurrencyValues service', () => {
       spyOn(appService, 'getConvertedCurrencyValues').and.returnValue(of('') as any);
+      spyOn(component, 'calculateConvertedCurrency');
       component.callCurrencyConvertor();
 
       expect(appService.getConvertedCurrencyValues).toHaveBeenCalled();
+    });
+
+    it('should call updatedConvertedCurrency', () => {
+      spyOn(appService, 'getConvertedCurrencyValues').and.returnValue(of('1') as any);
+      spyOn(component, 'calculateConvertedCurrency');
+      component.currencyToBeConverted = {
+        valueChanges: of('1')
+      } as any;
+      component.callCurrencyConvertor();
+
+      expect(component.calculateConvertedCurrency).toHaveBeenCalled();
     });
 
     it('should set convertedCurrency', () => {
@@ -84,12 +96,54 @@ describe('CurrencyConversionComponent', () => {
         }
       };
       spyOn(appService, 'getConvertedCurrencyValues').and.returnValue(of(rate) as any);
+      spyOn(component, 'calculateConvertedCurrency').and.returnValue('0.72');
+      spyOn(component, 'updatedConvertedCurrency');
       component.currencyToBeConverted = {
         valueChanges: of('1')
       } as any;
       component.callCurrencyConvertor();
 
       expect(component.convertedCurrency).toEqual('0.72');
+    });
+  });
+
+  describe('calculateConvertedCurrency', () => {
+    it('should return the calculated currency value', () => {
+      const data = {
+        AUD_USD: {
+          '2020-08-18': 0.547494
+        }
+      };
+      const val = 2;
+      component.selectedCurrency = 'AUD';
+      component.currencyType = 'USD';
+      const result = component.calculateConvertedCurrency(data, val);
+
+      expect(result).toEqual('1.09');
+    });
+  });
+
+  describe('updatedConvertedCurrency', () => {
+    it('should set convertedCurrency', () => {
+      const data = 'test-response';
+      spyOn(component, 'calculateConvertedCurrency').and.returnValue('test-converted-currency');
+      (component as any).currencyToBeConverted = {
+        value: 'test-value'
+      };
+      component.updatedConvertedCurrency(data);
+
+      expect(component.calculateConvertedCurrency).toHaveBeenCalled();
+      expect(component.convertedCurrency).toEqual('test-converted-currency');
+    });
+
+    it('should set convertedCurrency with empty string', () => {
+      const data = 'test-response';
+      (component as any).currencyToBeConverted = {
+        value: null
+      };
+      component.updatedConvertedCurrency(data);
+
+      expect(component.convertedCurrency).toEqual('');
     });
   });
 

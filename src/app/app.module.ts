@@ -9,7 +9,7 @@ import { CurrencyConversionComponent } from './currency-conversion/currency-conv
 import { CurrencyChartComponent } from './currency-chart/currency-chart.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MaterialModule} from './material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {HighchartsChartModule } from 'highcharts-angular';
 
@@ -27,6 +27,7 @@ import {HighchartsChartModule } from 'highcharts-angular';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     HighchartsChartModule
   ],
