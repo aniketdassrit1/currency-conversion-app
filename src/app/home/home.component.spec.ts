@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HomeComponent} from './home.component';
-import {RouterTestingModule} from "@angular/router/testing";
-import {AppService} from "../app.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatButtonModule} from "@angular/material/button";
-import {MatInputModule} from "@angular/material/input";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {currencyList} from "./home.spec.constant";
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppService} from '../app.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {currencyList} from './home.spec.constant';
 import {values} from 'lodash';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import {of} from 'rxjs';
-import {CurrencySingleInterface} from "../app.interface";
-import {ReactiveFormsModule} from "@angular/forms";
+import {CurrencySingleInterface} from '../app.interface';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -42,8 +42,8 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    route = TestBed.get(Router);
-    appService = TestBed.get(AppService);
+    route = TestBed.inject(Router);
+    appService = TestBed.inject(AppService);
     fixture.detectChanges();
   });
 
@@ -75,14 +75,6 @@ describe('HomeComponent', () => {
       component.ngOnInit();
 
       expect(component.currencyList).toEqual(list);
-    });
-
-    it('', () => {
-      spyOn(appService, 'getCurrencyList');
-      spyOn((component as any), 'filterCurrencyByQuery').and.returnValue('test-response');
-      component.filteredCurrencyList.subscribe(data => {
-        expect((data as any)).toEqual('test-response');
-      });
     });
   });
 
@@ -143,7 +135,7 @@ describe('HomeComponent', () => {
       spyOn(route, 'navigate');
       component.navigateToCurrencyConversion(event);
 
-      expect(route.navigate).not.toHaveBeenCalled;
+      expect(route.navigate).not.toHaveBeenCalled();
     });
   });
 

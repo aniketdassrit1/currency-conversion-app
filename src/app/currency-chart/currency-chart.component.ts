@@ -17,7 +17,7 @@ export class CurrencyChartComponent implements OnInit, OnDestroy {
   chartOptions: Highcharts.Options;
   chart: typeof Highcharts;
   getHistoricalExchangeRate: Subscription;
-  loading: boolean = false;
+  loading = false;
 
   constructor(private appService: AppService, private route: Router) {
     this.conversionData = get(this.route.getCurrentNavigation(), 'extras.state.currency');
@@ -31,7 +31,8 @@ export class CurrencyChartComponent implements OnInit, OnDestroy {
     const endDate = new Date();
     const startDate = addDays(new Date(), -6);
     this.loading = true;
-    this.getHistoricalExchangeRate = this.appService.getHistoricalExchangeRate(this.conversionData, { startDate, endDate }).subscribe((data: HistoricalExchangeRate) => {
+    this.getHistoricalExchangeRate = this.appService.getHistoricalExchangeRate(this.conversionData, { startDate, endDate })
+      .subscribe((data: HistoricalExchangeRate) => {
       this.loading = false;
       const exchangeRateData = get(data, `${this.conversionData.from}_${this.conversionData.to}`);
       const historicalData: number[] = values(exchangeRateData);

@@ -1,5 +1,5 @@
 export interface CurrencyListInterface {
-  [key: string]: CurrencySingleInterface
+  [key: string]: CurrencySingleInterface;
 }
 
 export interface CurrencySingleInterface {

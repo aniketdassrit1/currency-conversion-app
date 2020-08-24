@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AppService } from './app.service';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {of} from 'rxjs';
-import {apiKey} from "./app.constants";
+import {apiKey} from './app.constants';
 
 describe('AppService', () => {
   let service: AppService;
@@ -52,7 +52,7 @@ describe('AppService', () => {
 
       service.getConvertedCurrencyValues(to, from);
 
-      expect(service.http.get).toHaveBeenCalledWith(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&date=${now}&apiKey=${apiKey}`)
+      expect(service.http.get).toHaveBeenCalledWith(`https://free.currconv.com/api/v7/convert?q=${from}_${to}&compact=ultra&date=${now}&apiKey=${apiKey}`);
     });
   });
 

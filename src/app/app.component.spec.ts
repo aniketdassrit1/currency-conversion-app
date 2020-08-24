@@ -1,31 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import {Component} from "@angular/core";
-import {Routes} from "@angular/router";
+import {Component} from '@angular/core';
+import {Routes} from '@angular/router';
 
 @Component({
   selector: 'app-dummy',
   template: ''
 })
-class AppDummy {}
+class AppDummyComponent {}
 
 const appRoutes: Routes = [{
   path: 'home',
-  component: AppDummy
+  component: AppDummyComponent
 }, {
   path: 'currency-conversion',
-  component: AppDummy
+  component: AppDummyComponent
 }, {
   path: 'chart',
-  component: AppDummy
+  component: AppDummyComponent
 }, {
   path: '',
   redirectTo: 'home',
   pathMatch: 'full'
 }, {
   path: '**',
-  component: AppDummy
+  component: AppDummyComponent
 }];
 
 describe('AppComponent', () => {

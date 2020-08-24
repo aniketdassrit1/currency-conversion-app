@@ -6,8 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test --browsers=ChromeHeadless",
+    "test:nowatch": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint:fix": "ng lint --fix",
+    "e2e": "ng e2e",
+    "coverage": "ng test --watch=false --browsers=ChromeHeadless --codeCoverage=true",
+    "pre-push": "npm run lint && npm run test:nowatch && npm run coverage"
   },
   "private": true,
   "dependencies": {

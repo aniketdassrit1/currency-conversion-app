@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CurrencyChartComponent } from './currency-chart.component';
-import {RouterTestingModule} from "@angular/router/testing";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {Component} from "@angular/core";
-import {AppService} from "../app.service";
-import {Router} from "@angular/router";
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Component} from '@angular/core';
+import {AppService} from '../app.service';
+import {Router} from '@angular/router';
 import {of, throwError} from 'rxjs';
-import {EXPECTED_SERIES, EXPECTED_XAXIS, HISTORICAL_RATE} from "./currency-chart.spec.constant";
+import {EXPECTED_SERIES, EXPECTED_XAXIS, HISTORICAL_RATE} from './currency-chart.spec.constant';
 
 @Component({
-  selector: 'currency-chart-dummy',
+  selector: 'app-currency-chart-dummy',
   template: ''
 })
-class DummyComponent {}
+class AppCurrencyChartDummyComponent {}
 
 describe('CurrencyChartComponent', () => {
   let component: CurrencyChartComponent;
@@ -27,7 +27,7 @@ describe('CurrencyChartComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([{
           path: 'currency-conversion',
-          component: DummyComponent
+          component: AppCurrencyChartDummyComponent
         }]),
         HttpClientTestingModule
       ]
@@ -35,8 +35,8 @@ describe('CurrencyChartComponent', () => {
       .compileComponents();
     fixture = TestBed.createComponent(CurrencyChartComponent);
     component = fixture.componentInstance;
-    appService = TestBed.get(AppService);
-    route = TestBed.get(Router);
+    appService = TestBed.inject(AppService);
+    route = TestBed.inject(Router);
     spyOn(route, 'navigate');
     jasmine.clock().install();
     const baseTime = new Date('2020-08-23');
@@ -132,7 +132,7 @@ describe('CurrencyChartComponent', () => {
     it('should unsubscribe from getHistoricalExchangeRate', () => {
       (component as any).getHistoricalExchangeRate = {
         unsubscribe: jasmine.createSpy()
-      }
+      };
       component.ngOnDestroy();
 
       expect(component.getHistoricalExchangeRate.unsubscribe).toHaveBeenCalled();

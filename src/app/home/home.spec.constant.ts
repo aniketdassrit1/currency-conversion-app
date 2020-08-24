@@ -1,4 +1,4 @@
-import {CurrencyListInterface} from "../app.interface";
+import {CurrencyListInterface} from '../app.interface';
 
 export const currencyList: { results: CurrencyListInterface } = {
   results: {
@@ -18,4 +18,4 @@ export const currencyList: { results: CurrencyListInterface } = {
       id: 'EUR'
     }
   }
-}
+};
